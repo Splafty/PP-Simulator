@@ -38,13 +38,12 @@ public class Creature
     }
 
 
-    private int level;
+    private int level = 1; // Fix ????
     public int Level
     {
         get => level;
         init
         {
-
             if (value < 1)
             {
                 value = 1;
@@ -81,5 +80,28 @@ public class Creature
         {
             level++;
         }
+    }
+
+    // Takes one parameter (Up, Right, Down, Left)
+    public void Go(Direction direction)
+    {
+        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
+    }
+
+
+    // Takes an array of parameters
+    public void Go(Direction[] directions)
+    {
+        foreach (var direction in directions)
+        {
+            Go(direction);
+        }
+    }
+
+    // Takes a string of parameters
+    public void Go(string directions)
+    {
+        Direction[] parsedDirections = DirectionParser.Parse(directions);
+        Go(parsedDirections);
     }
 }
