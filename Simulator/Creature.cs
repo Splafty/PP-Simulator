@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Simulator;
 
-public class Creature
+public abstract class Creature
 {
     // Properties
     private string name = "Unknown";
@@ -58,6 +58,8 @@ public class Creature
         }
     }
 
+    public abstract int Power { get; }
+
 
     // Constructors
     public Creature(string name, int level = 1)
@@ -70,7 +72,7 @@ public class Creature
 
 
     // Methods
-    public void SayHi() => Console.WriteLine($"Hi, I'm {Name}, my level is {Level}.");
+    public abstract void SayHi();
 
     public string Info => $"{Name} [{Level}]";
 
@@ -87,7 +89,6 @@ public class Creature
     {
         Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
     }
-
 
     // Takes an array of parameters
     public void Go(Direction[] directions)
