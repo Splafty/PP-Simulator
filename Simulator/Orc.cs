@@ -9,22 +9,15 @@ public class Orc : Creature
         get => rage;
         init
         {
-            if (value < 0)
-            {
-                value = 0;
-            }
-            if (value > 10)
-            {
-                value = 10;
-            }
-
-            rage = value;
+            rage = Validator.Limiter(value, 1, 10);
         }
     }
 
     private int huntCounter = 0;
 
     public override int Power => 7 * Level + 3 * Rage;
+
+    public override string Info => $"{Name} [{Level}][{Rage}]";
 
 
     // Constructors

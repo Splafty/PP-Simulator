@@ -16,49 +16,23 @@ public abstract class Creature
         get => name;
         init
         {
-            value = value.Trim();
-
-            if (value.Length > 25)
-            {
-                value = value.Substring(0, 25).TrimEnd();
-            }
-
-            if (value.Length < 3)
-            {
-                value = value.PadRight(3, '#');
-            }
-
-            if (char.IsLower(value[0]))
-            {
-                value = char.ToUpper(value[0]) + value.Substring(1);
-            }
-
-            name = value;
+            name = Validator.Shortener(value, 3, 25, '#');
         }
     }
 
-
-    private int level = 1; // Fix ????
+    private int level = 1;
     public int Level
     {
         get => level;
         init
         {
-            if (value < 1)
-            {
-                value = 1;
-            }
-
-            else if (value > 10)
-            {
-                value = 10;
-            }
-
-            level = value;
+            level = Validator.Limiter(value, 1, 10);
         }
     }
 
     public abstract int Power { get; }
+
+    public abstract string Info { get; }
 
 
     // Constructors
@@ -74,14 +48,17 @@ public abstract class Creature
     // Methods
     public abstract void SayHi();
 
-    public string Info => $"{Name} [{Level}]";
-
     public void Upgrade()
     {
         if (level < 10)
         {
             level++;
         }
+    }
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
     }
 
     // Takes one parameter (Up, Right, Down, Left)
