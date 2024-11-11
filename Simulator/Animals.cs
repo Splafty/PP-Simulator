@@ -25,8 +25,5 @@ public class Animals
 
 
     // Methods
-    public override string ToString()
-    {
-        return $"{GetType().Name.ToUpper()}: {Info}";
-    }
+    public override string ToString() => $"{GetType().Name.ToUpper()}: {Info}";
 }
