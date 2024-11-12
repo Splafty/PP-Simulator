@@ -22,10 +22,11 @@ internal class Rectangle
 
         // I think that during the lesson we established that, in the created rectangle/map, we must be able to go in any given direction
         // So if we have a min 3x3 grid and the character "stands" in the middle of it, we have an option to test all the directions
-        if (Math.Abs(x1 - x2) < 3 || Math.Abs(y1 - y2) < 3)
-        {
-            throw new ArgumentException("Rectangle has to be at least 3x3 in size.");
-        }
+        //if (Math.Abs(x1 - x2) < 3 || Math.Abs(y1 - y2) < 3)
+        //{
+        //    throw new ArgumentException("Rectangle has to be at least 3x3 in size.");
+        //}
+        // Part 2 of the given exercise (SmallSquareMap) checks the minimum size, commenting for now, may use later
 
         if (x1 > x2)
         {
