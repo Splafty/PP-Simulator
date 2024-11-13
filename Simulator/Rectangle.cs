@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulator;
 
-internal class Rectangle
+public class Rectangle
 {
     // Properties
     public readonly int X1, Y1, X2, Y2;

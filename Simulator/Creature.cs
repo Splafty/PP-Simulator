@@ -46,7 +46,7 @@ public abstract class Creature
 
 
     // Methods
-    public abstract void SayHi();
+    public abstract string Greeting();
 
     public void Upgrade()
     {
@@ -62,24 +62,25 @@ public abstract class Creature
     }
 
     // Takes one parameter (Up, Right, Down, Left)
-    public void Go(Direction direction)
-    {
-        Console.WriteLine($"{Name} goes {direction.ToString().ToLower()}.");
-    }
+    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
 
     // Takes an array of parameters
-    public void Go(Direction[] directions)
+    public string[] Go(Direction[] directions)
     {
-        foreach (var direction in directions)
+        var result = new string[directions.Length];
+
+        for (int i = 0; i < directions.Length; i++)
         {
-            Go(direction);
+            result[i] = Go(directions[i]);
         }
+
+        return result;
     }
 
     // Takes a string of parameters
-    public void Go(string directions)
+    public string[] Go(string directions)
     {
         Direction[] parsedDirections = DirectionParser.Parse(directions);
-        Go(parsedDirections);
+        return Go(parsedDirections);
     }
 }
