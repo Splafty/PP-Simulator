@@ -57,7 +57,6 @@ internal class Program
         {
             Rectangle rect7 = new Rectangle(p1, p1);
             Console.WriteLine("Created rectangle: " + rect7);
-
         }
         catch (ArgumentException ex)
         {
@@ -71,7 +70,6 @@ internal class Program
         //{
         //    Rectangle rect7 = new Rectangle(p3, p4);
         //    Console.WriteLine("Created rectangle: " + rect7);
-
         //}
         //catch (ArgumentException ex)
         //{
