@@ -1,12 +1,14 @@
 ﻿namespace Simulator.Maps;
 
-public class SmallTorusMap : Map
+public class SmallTorusMap : SmallMap
 {
     // Constructors
     public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
     }
 
+
+    // Methods
     public override Point Next(Point p, Direction d)
     {
         Point nextPoint = p.Next(d);
@@ -18,9 +20,9 @@ public class SmallTorusMap : Map
             case Direction.Right:
                 return Exist(nextPoint) ? nextPoint : new Point(0, p.Y);
             case Direction.Down:
-                return Exist(nextPoint) ? nextPoint : new Point(p.X, Size - 1);
+                return Exist(nextPoint) ? nextPoint : new Point(p.X, SizeY - 1);
             case Direction.Left:
-                return Exist(nextPoint) ? nextPoint : new Point(Size - 1, p.Y);
+                return Exist(nextPoint) ? nextPoint : new Point(SizeX - 1, p.Y);
             default:
                 return p; // Wrong direction => No change
         }
@@ -33,13 +35,13 @@ public class SmallTorusMap : Map
         switch (d)
         {
             case Direction.Up:
-                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X + 1) % Size, (p.Y + 1) % Size);
+                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X + 1) % SizeX, (p.Y + 1) % SizeY);
             case Direction.Right:
-                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X + 1) % Size, (p.Y - 1 + Size) % Size);
+                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X + 1) % SizeX, (p.Y - 1 + SizeY) % SizeY);
             case Direction.Down:
-                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X - 1 + Size) % Size, (p.Y - 1 + Size) % Size);
+                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X - 1 + SizeX) % SizeX, (p.Y - 1 + SizeY) % SizeY);
             case Direction.Left:
-                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X - 1 + Size) % Size, (p.Y + 1) % Size);
+                return Exist(nextDiagonalPoint) ? nextDiagonalPoint : new Point((p.X - 1 + SizeX) % SizeX, (p.Y + 1) % SizeY);
             default:
                 return p; // Wrong direction => No change
         }

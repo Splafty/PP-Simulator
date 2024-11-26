@@ -7,6 +7,8 @@ public class SmallSquareMap : SmallMap
     {
     }
 
+
+    // Methods
     public override Point Next(Point p, Direction d)
     {
         Point nextPoint = p.Next(d);

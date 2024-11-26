@@ -39,8 +39,6 @@ public abstract class Creature
     public abstract string Info { get; }
 
 
-
-
     // Constructors
     public Creature(string name, int level = 1)
     {
@@ -52,7 +50,16 @@ public abstract class Creature
 
 
     // Methods
-    public void InitMapAndPosition(Map map, Point position) { }
+    public void InitMapAndPosition(Map map, Point p)
+    {
+        if (!map.Exist(p))
+        {
+            throw new InvalidOperationException($"Point {p} is not a part of the map.");
+        }
+
+        Map = map;
+        Position = p;
+    }
 
     public abstract string Greeting();
 
@@ -69,32 +76,17 @@ public abstract class Creature
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
 
-    // OUT
-    // Takes one parameter (Up, Right, Down, Left)
-    public string Go(Direction direction) => $"{direction.ToString().ToLower()}";
-
-    // Takes an array of parameters
-    public string[] Go(Direction[] directions)
+    public void Go(Direction direction)
     {
-        // Map.Next()
-        // Map.Next() == Position -> bez ruchu
-
-        // Map.Move()
-
-        var result = new string[directions.Length];
-
-        for (int i = 0; i < directions.Length; i++)
+        if (Map == null)
         {
-            result[i] = Go(directions[i]);
+            return;
         }
 
-        return result;
-    }
-    // OUT
-    // Takes a string of parameters
-    public string[] Go(string directions)
-    {
-        Direction[] parsedDirections = DirectionParser.Parse(directions);
-        return Go(parsedDirections);
+        Point nextPosition = Map.Next(Position, direction);
+        // NextDiagonal ??? Implementation in the future ???
+        Map.Move(this, Position, nextPosition);
+
+        Position = nextPosition;
     }
 }

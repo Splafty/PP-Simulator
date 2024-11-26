@@ -15,7 +15,9 @@ public class SmallSquareMapTests
         var map = new SmallSquareMap(size);
 
         // Assert
-        Assert.Equal(size, map.Size);
+        Assert.Equal(size, map.SizeX);
+        Assert.Equal(size, map.SizeY);
+
     }
 
     [Theory]
