@@ -40,12 +40,33 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature => Creatures[CurrentCreatureIndex];
+    public Creature CurrentCreature => Creatures[CurrentCreatureIndex % Creatures.Count];
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
     /// </summary>
-    public string CurrentMoveName => Moves[CurrentCreatureIndex % Moves.Length].ToString().ToLower();
+    public string CurrentMoveName
+    {
+        get
+        {
+            char move = char.ToLower(Moves[CurrentCreatureIndex % Moves.Length]);
+
+            // Different parser???
+            switch (move)
+            {
+                case 'u':
+                    return "up";
+                case 'r':
+                    return "right";
+                case 'd':
+                    return "down";
+                case 'l':
+                    return "left";
+                default:
+                    return "";
+            }
+        }
+    }
 
     /// <summary>
     /// Simulation constructor.
@@ -76,6 +97,12 @@ public class Simulation
         Creatures = creatures;
         Positions = positions;
         Moves = moves;
+
+        for (int i = 0; i < creatures.Count; i++)
+        {
+            creatures[i].InitMapAndPosition(map, positions[i]);
+            map.Add(creatures[i], positions[i]);
+        }
     }
 
     /// <summary>
@@ -94,7 +121,7 @@ public class Simulation
 
         CurrentCreatureIndex++;
 
-        if (CurrentCreatureIndex >= Creatures.Count)
+        if (CurrentCreatureIndex >= Moves.Length)
         {
             Finished = true;
         }
