@@ -8,7 +8,7 @@ public abstract class Map
     // Properties
     public int SizeX { get; }
     public int SizeY { get; }
-    protected abstract List<Creature>?[,] Fields { get; }
+    protected abstract List<IMappable>?[,] Fields { get; }
     private Rectangle border;
 
 
@@ -54,7 +54,7 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public void Add(Creature creature, Point p)
+    public void Add(IMappable mappable, Point p)
     {
         if (!Exist(p))
         {
@@ -63,13 +63,13 @@ public abstract class Map
 
         if (Fields[p.X, p.Y] == null)
         {
-            Fields[p.X, p.Y] = new List<Creature>();
+            Fields[p.X, p.Y] = new List<IMappable>();
         }
 
-        Fields[p.X, p.Y].Add(creature);
+        Fields[p.X, p.Y].Add(mappable);
     }
 
-    public void Remove(Creature creature, Point p)
+    public void Remove(IMappable mappable, Point p)
     {
         if (!Exist(p))
         {
@@ -78,7 +78,7 @@ public abstract class Map
 
         if (Fields[p.X, p.Y] != null)
         {
-            Fields[p.X, p.Y].Remove(creature);
+            Fields[p.X, p.Y].Remove(mappable);
 
             if (Fields[p.X, p.Y]?.Count == 0)
             {
@@ -87,14 +87,14 @@ public abstract class Map
         }
     }
 
-    public void Move(Creature creature, Point from, Point to)
+    public void Move(IMappable mappable, Point from, Point to)
     {
-        Remove(creature, from);
-        Add(creature, to);
+        Remove(mappable, from);
+        Add(mappable, to);
     }
 
     // Return null so we dont create empty lists
-    public List<Creature>? At(Point point)
+    public List<IMappable>? At(Point point)
     {
         if (Fields[point.X, point.Y] == null)
         {
@@ -104,7 +104,7 @@ public abstract class Map
         return Fields[point.X, point.Y];
     }
 
-    public List<Creature> At(int x, int y)
+    public List<IMappable> At(int x, int y)
     {
         return At(new Point(x, y));
     }

@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     // Properties
     public Map? Map { get; private set; }

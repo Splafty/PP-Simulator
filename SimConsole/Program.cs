@@ -17,26 +17,26 @@ class Program
     static void RunSimulation1()
     {
         SmallSquareMap map = new(5);
-        List<Creature> creatures = new() { new Orc("Gorbag"), new Elf("Elandor") };
+        List<IMappable> mappables = new() { new Orc("Gorbag"), new Elf("Elandor") };
         List<Point> points = new() { new(2, 2), new(3, 1) };
         string moves = "dlrludl";
 
-        RunSimulation(map, creatures, points, moves);
+        RunSimulation(map, mappables, points, moves);
     }
 
     static void RunSimulation2()
     {
         SmallSquareMap map = new(6);
-        List<Creature> creatures = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Elf("Elrond") };
+        List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Elf("Elrond") };
         List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3) };
         string moves = "uldrddrl";
 
-        RunSimulation(map, creatures, points, moves);
+        RunSimulation(map, mappables, points, moves);
     }
 
-    static void RunSimulation(Map map, List<Creature> creatures, List<Point> points, string moves)
+    static void RunSimulation(Map map, List<IMappable> mappables, List<Point> points, string moves)
     {
-        Simulation simulation = new(map, creatures, points, moves);
+        Simulation simulation = new(map, mappables, points, moves);
         MapVisualizer mapVisualizer = new(simulation.Map);
 
         Console.WriteLine("SIMULATION!\n");
@@ -51,7 +51,7 @@ class Program
             Console.WriteLine($"Turn {round}");
             round++;
 
-            Console.Write($"{simulation.CurrentCreature.ToString()} {simulation.CurrentCreature.Position} goes {simulation.CurrentMoveName}:\n");
+            Console.Write($"{simulation.CurrentMappable.ToString()} {simulation.CurrentMappable.Position} goes {simulation.CurrentMoveName}:\n");
             simulation.Turn();
 
             mapVisualizer.Draw();

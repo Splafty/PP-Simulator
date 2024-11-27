@@ -3,8 +3,8 @@
 public abstract class SmallMap : Map
 {
     // Properties
-    private readonly List<Creature>?[,] _fields;
-    protected override List<Creature>?[,] Fields => _fields;
+    private readonly List<IMappable>?[,] _fields;
+    protected override List<IMappable>?[,] Fields => _fields;
 
 
     // Constructors
@@ -20,6 +20,6 @@ public abstract class SmallMap : Map
             throw new ArgumentOutOfRangeException(nameof(sizeY), "Map too high.");
         }
 
-        _fields = new List<Creature>?[sizeX, sizeY];
+        _fields = new List<IMappable>?[sizeX, sizeY];
     }
 }
