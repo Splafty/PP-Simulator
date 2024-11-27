@@ -26,6 +26,7 @@ public class ValidatorTests
     [InlineData(" lowerCase ", 5, 15, '#', "LowerCase")]
     [InlineData("Single", 5, 6, '#', "Single")]
     [InlineData(" ", 3, 5, '#', "###")]
+    [InlineData("a                   b", 3, 5, '#', "a##")]
     public void Shortener_ShouldReturnCorrectString(string value, int min, int max, char placeholder, string expected)
     {
         // Act
