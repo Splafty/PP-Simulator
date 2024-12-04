@@ -3,6 +3,7 @@
 public class Orc : Creature
 {
     // Properties
+    public override char Symbol => 'O';
     private int rage = 1;
     public int Rage
     {

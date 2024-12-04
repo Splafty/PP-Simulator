@@ -8,10 +8,13 @@ class Program
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        RunSimulation1();
-        Console.WriteLine("\nPress any key to run another simulation...\n");
-        Console.ReadKey(true);
-        RunSimulation2();
+        //RunSimulation1();
+        //Console.WriteLine("\nPress any key to run another simulation...\n");
+        //Console.ReadKey(true);
+        //RunSimulation2();
+        //Console.WriteLine("\nPress any key to run another simulation...\n");
+        //Console.ReadKey(true);
+        RunSimulation3();
     }
 
     static void RunSimulation1()
@@ -30,6 +33,16 @@ class Program
         List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Elf("Elrond") };
         List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3) };
         string moves = "uldrddrl";
+
+        RunSimulation(map, mappables, points, moves);
+    }
+
+    static void RunSimulation3()
+    {
+        SmallTorusMap map = new(8,6);
+        List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Animals("Rabbits", 6), new Birds("Eagle", 3, true), new Birds("Ostrich", 8, false) };
+        List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new (4, 2), new (1, 1)};
+        string moves = "uldrddrlrrululr";
 
         RunSimulation(map, mappables, points, moves);
     }

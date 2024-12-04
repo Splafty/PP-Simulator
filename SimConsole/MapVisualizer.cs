@@ -3,6 +3,7 @@ using Simulator.Maps;
 
 namespace SimConsole;
 
+// Change the function so that it returns a table of lines instead of "writes"
 public class MapVisualizer
 {
     private readonly Map _map;
@@ -36,14 +37,7 @@ public class MapVisualizer
                 {
                     var creature = creatures[0];
 
-                    if (creature is Elf)
-                    {
-                        Console.Write('E');
-                    }
-                    else if (creature is Orc)
-                    {
-                        Console.Write('O');
-                    }
+                    Console.Write($"{creature.Symbol}");
                 }
                 else
                 {

@@ -3,8 +3,12 @@
 
 public interface IMappable
 {
-    public Point Position { get; }
+    // Properties
+    Point Position { get; }
+    public char Symbol { get; }
 
+
+    // Methods
     void Go(Direction direction);
     void InitMapAndPosition(Map map, Point point);
 }

@@ -25,7 +25,7 @@ public class Simulation
     /// When all mappables make moves, 
     /// next move is again for first mappable and so on.
     /// </summary>
-    public string Moves { get; }
+    public List <Direction> Moves { get; }
 
     /// <summary>
     /// Has all moves been done?
@@ -49,22 +49,8 @@ public class Simulation
     {
         get
         {
-            char move = char.ToLower(Moves[CurrentMappableIndex % Moves.Length]);
-
-            // Different parser???
-            switch (move)
-            {
-                case 'u':
-                    return "up";
-                case 'r':
-                    return "right";
-                case 'd':
-                    return "down";
-                case 'l':
-                    return "left";
-                default:
-                    return "";
-            }
+            string move = Moves[CurrentMappableIndex % Moves.Count].ToString().ToLower();
+            return move;
         }
     }
 
@@ -96,7 +82,7 @@ public class Simulation
         Map = map;
         IMappables = mappables;
         Positions = positions;
-        Moves = moves;
+        Moves = DirectionParser.Parse(moves);
 
         for (int i = 0; i < mappables.Count; i++)
         {
@@ -121,7 +107,7 @@ public class Simulation
 
         CurrentMappableIndex++;
 
-        if (CurrentMappableIndex >= Moves.Length)
+        if (CurrentMappableIndex >= Moves.Count)
         {
             Finished = true;
         }

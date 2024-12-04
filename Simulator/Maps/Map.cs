@@ -54,58 +54,13 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public void Add(IMappable mappable, Point p)
-    {
-        if (!Exist(p))
-        {
-            throw new InvalidOperationException($"Point {p} is not a part of the map.");
-        }
+    public abstract void Add(IMappable mappable, Point p);
 
-        if (Fields[p.X, p.Y] == null)
-        {
-            Fields[p.X, p.Y] = new List<IMappable>();
-        }
+    public abstract void Remove(IMappable mappable, Point p);
 
-        Fields[p.X, p.Y].Add(mappable);
-    }
+    public abstract void Move(IMappable mappable, Point from, Point to);
 
-    public void Remove(IMappable mappable, Point p)
-    {
-        if (!Exist(p))
-        {
-            throw new InvalidOperationException($"Point {p} is not a part of the map.");
-        }
+    public abstract List<IMappable>? At(Point point);
 
-        if (Fields[p.X, p.Y] != null)
-        {
-            Fields[p.X, p.Y].Remove(mappable);
-
-            if (Fields[p.X, p.Y]?.Count == 0)
-            {
-                Fields[p.X, p.Y] = null;
-            }
-        }
-    }
-
-    public void Move(IMappable mappable, Point from, Point to)
-    {
-        Remove(mappable, from);
-        Add(mappable, to);
-    }
-
-    // Return null so we dont create empty lists
-    public List<IMappable>? At(Point point)
-    {
-        if (Fields[point.X, point.Y] == null)
-        {
-            return null;
-        }
-
-        return Fields[point.X, point.Y];
-    }
-
-    public List<IMappable> At(int x, int y)
-    {
-        return At(new Point(x, y));
-    }
+    public abstract List<IMappable> At(int x, int y);
 }

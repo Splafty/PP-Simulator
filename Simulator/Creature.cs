@@ -13,6 +13,7 @@ public abstract class Creature : IMappable
     // Properties
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
+    public abstract char Symbol { get; }
 
     private string name = "Unknown";
     public string Name 
@@ -84,7 +85,6 @@ public abstract class Creature : IMappable
         }
 
         Point nextPosition = Map.Next(Position, direction);
-        // NextDiagonal ??? Implementation in the future ???
         Map.Move(this, Position, nextPosition);
 
         Position = nextPosition;
