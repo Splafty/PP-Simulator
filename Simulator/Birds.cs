@@ -1,4 +1,6 @@
-﻿namespace Simulator;
+﻿using Simulator.Maps;
+
+namespace Simulator;
 
 public class Birds : Animals
 {
@@ -35,17 +37,36 @@ public class Birds : Animals
             return;
         }
 
-        Point nextPosition;
-        if (CanFly)
+        if (Map is BigBounceMap)
         {
-            nextPosition = Map.Next(Map.Next(Position, direction), direction);
+            Point nextPosition;
+            Point nextStraightPosition = Position.Next(direction);
+            if (CanFly)
+            {
+                nextPosition = Map.Next(nextStraightPosition, direction);
+            }
+            else
+            {
+                nextPosition = Map.NextDiagonal(Position, direction);
+            }
+
+            Map.Move(this, Position, nextPosition);
+            Position = nextPosition;
         }
         else
         {
-            nextPosition = Map.NextDiagonal(Position, direction);
-        }
+            Point nextPosition;
+            if (CanFly)
+            {
+                nextPosition = Map.Next(Map.Next(Position, direction), direction);
+            }
+            else
+            {
+                nextPosition = Map.NextDiagonal(Position, direction);
+            }
 
-        Map.Move(this, Position, nextPosition);
-        Position = nextPosition;
+            Map.Move(this, Position, nextPosition);
+            Position = nextPosition;
+        }
     }
 }

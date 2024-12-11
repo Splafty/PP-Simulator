@@ -14,7 +14,19 @@ class Program
         //RunSimulation2();
         //Console.WriteLine("\nPress any key to run another simulation...\n");
         //Console.ReadKey(true);
-        RunSimulation3();
+        //RunSimulation3();
+
+        RunSimulation4();
+        Console.WriteLine("\nPress any key to run another simulation - ONLY FLYING BIRDS...\n");
+        Console.ReadKey(true);
+
+        // Testing flying birds movement on bouncy map
+        RunSimulation5();
+        Console.WriteLine("\nPress any key to run another simulation - ONLY NON FLYING BIRDS...\n");
+        Console.ReadKey(true);
+
+        // Testing non flying birds movement on bouncy map
+        RunSimulation6();
     }
 
     static void RunSimulation1()
@@ -40,13 +52,44 @@ class Program
     static void RunSimulation3()
     {
         SmallTorusMap map = new(8,6);
-        List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Animals("Rabbits", 6), new Birds("Eagle", 3, true), new Birds("Ostrich", 8, false) };
+        List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Animals("Rabbits", 6), new Birds("Eagles", 3, true), new Birds("Ostrich", 8, false) };
         List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new (4, 2), new (1, 1)};
         string moves = "uldrddrlrrululr";
 
         RunSimulation(map, mappables, points, moves);
     }
 
+    static void RunSimulation4()
+    {
+        BigBounceMap map = new(8, 6);
+        List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Animals("Rabbits", 6), new Birds("Eagles", 3, true), new Birds("Ostriches", 8, false) };
+        List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new(4, 2), new(7,5) };
+        string moves = "lrududuldrllludlrlld";
+
+        RunSimulation(map, mappables, points, moves);
+    }
+    
+    // Testing flying birds movement on bouncy map
+    static void RunSimulation5()
+    {
+        BigBounceMap map = new(6, 6);
+        List<IMappable> mappables = new() { new Birds("Eagles", 3, true) };
+        List<Point> points = new() { new(3, 3) };
+        string moves = "urudlrruudddlulrr";
+
+        RunSimulation(map, mappables, points, moves);
+    }
+
+    // Testing non flying birds movement on bouncy map
+    static void RunSimulation6()
+    {
+        BigBounceMap map = new(5, 5);
+        List<IMappable> mappables = new() { new Birds("Ostriches1", 8, false), new Birds("Ostriches2", 8, false), new Birds("Ostriches3", 8, false), new Birds("Ostriches4", 8, false) };
+        List<Point> points = new() { new(0,1), new (1,4), new(4,3), new(3,0) };
+        string moves = "urudlrruudddlulrr";
+
+        RunSimulation(map, mappables, points, moves);
+    }
     static void RunSimulation(Map map, List<IMappable> mappables, List<Point> points, string moves)
     {
         Simulation simulation = new(map, mappables, points, moves);
