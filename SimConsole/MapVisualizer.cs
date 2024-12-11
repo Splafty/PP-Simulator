@@ -3,10 +3,10 @@ using Simulator.Maps;
 
 namespace SimConsole;
 
-// Change the function so that it returns a table of lines instead of "writes"
 public class MapVisualizer
 {
     private readonly Map _map;
+
     public MapVisualizer(Map map)
     {
         _map = map;
@@ -14,61 +14,90 @@ public class MapVisualizer
 
     public void Draw()
     {
-        Console.Write(Box.TopLeft);
+        var lines = new List<string>();
+
+        // Top border
+        var topBorder = Box.TopLeft.ToString();
         for (int x = 0; x < _map.SizeX; x++)
         {
-            Console.Write(Box.Horizontal);
-            if (x < _map.SizeX - 1) Console.Write(Box.TopMid);
+            topBorder += Box.Horizontal;
+            if (x < _map.SizeX - 1)
+            {
+                topBorder += Box.TopMid;
+            }
         }
-        Console.WriteLine(Box.TopRight);
 
+        topBorder += Box.TopRight;
+        lines.Add(topBorder);
+
+        // Rows
         for (int y = _map.SizeY - 1; y >= 0; y--)
         {
-            Console.Write(Box.Vertical);
+            var row = Box.Vertical.ToString();
             for (int x = 0; x < _map.SizeX; x++)
             {
                 var creatures = _map.At(new Point(x, y));
 
                 if (creatures != null && creatures.Count > 1)
                 {
-                    Console.Write('X');
+                    row += 'X';
                 }
                 else if (creatures != null && creatures.Count == 1)
                 {
                     var creature = creatures[0];
-
-                    Console.Write($"{creature.Symbol}");
+                    row += creature.Symbol;
                 }
                 else
                 {
-                    Console.Write(' ');
+                    row += ' ';
                 }
 
                 if (x < _map.SizeX - 1)
                 {
-                    Console.Write(Box.Vertical);
+                    row += Box.Vertical;
                 }
             }
-            Console.WriteLine(Box.Vertical);
 
+            row += Box.Vertical;
+            lines.Add(row);
+
+            // Mid border
             if (y > 0)
             {
-                Console.Write(Box.MidLeft);
+                var midBorder = Box.MidLeft.ToString();
                 for (int x = 0; x < _map.SizeX; x++)
                 {
-                    Console.Write(Box.Horizontal);
-                    if (x < _map.SizeX - 1) Console.Write(Box.Cross);
+                    midBorder += Box.Horizontal;
+                    if (x < _map.SizeX - 1)
+                    {
+                        midBorder += Box.Cross;
+                    }
                 }
-                Console.WriteLine(Box.MidRight);
+
+                midBorder += Box.MidRight;
+                lines.Add(midBorder);
             }
         }
 
-        Console.Write(Box.BottomLeft);
+        // Bottom border
+        var bottomBorder = Box.BottomLeft.ToString();
         for (int x = 0; x < _map.SizeX; x++)
         {
-            Console.Write(Box.Horizontal);
-            if (x < _map.SizeX - 1) Console.Write(Box.BottomMid);
+            bottomBorder += Box.Horizontal;
+            if (x < _map.SizeX - 1)
+            {
+                bottomBorder += Box.BottomMid;
+            }
         }
-        Console.WriteLine(Box.BottomRight);
+
+        bottomBorder += Box.BottomRight;
+        lines.Add(bottomBorder);
+
+        // Printing result to console for now - we can do something with the result in the future
+        foreach (var line in lines)
+        {
+            Console.WriteLine(line);
+        }
     }
+
 }

@@ -86,7 +86,7 @@ class Program
         BigBounceMap map = new(5, 5);
         List<IMappable> mappables = new() { new Birds("Ostriches1", 8, false), new Birds("Ostriches2", 8, false), new Birds("Ostriches3", 8, false), new Birds("Ostriches4", 8, false) };
         List<Point> points = new() { new(0,1), new (1,4), new(4,3), new(3,0) };
-        string moves = "urudlrruudddlulrr";
+        string moves = "urudlrruudddlulrrr";
 
         RunSimulation(map, mappables, points, moves);
     }
