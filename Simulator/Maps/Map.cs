@@ -8,7 +8,8 @@ public abstract class Map
     // Properties
     public int SizeX { get; }
     public int SizeY { get; }
-    protected abstract List<IMappable>?[,] Fields { get; }
+
+    private readonly Dictionary<Point, List<IMappable>> _fields = new();
     private Rectangle border;
 
 
@@ -54,13 +55,58 @@ public abstract class Map
     /// <returns>Next point.</returns>
     public abstract Point NextDiagonal(Point p, Direction d);
 
-    public abstract void Add(IMappable mappable, Point p);
 
-    public abstract void Remove(IMappable mappable, Point p);
+    public virtual void Add(IMappable mappable, Point p)
+    {
+        if (!Exist(p))
+        {
+            throw new InvalidOperationException($"Point {p} is not a part of the map.");
+        }
 
-    public abstract void Move(IMappable mappable, Point from, Point to);
+        if (!_fields.ContainsKey(p))
+        {
+            _fields[p] = new List<IMappable>();
+        }
 
-    public abstract List<IMappable>? At(Point point);
+        _fields[p].Add(mappable);
+    }
 
-    public abstract List<IMappable> At(int x, int y);
+    public virtual void Remove(IMappable mappable, Point p)
+    {
+        if (!Exist(p))
+        {
+            throw new InvalidOperationException($"Point {p} is not a part of the map.");
+        }
+
+        if (_fields.ContainsKey(p))
+        {
+            _fields[p].Remove(mappable);
+
+            if (_fields[p].Count == 0)
+            {
+                _fields.Remove(p);
+            }
+        }
+    }
+
+    public virtual void Move(IMappable mappable, Point from, Point to)
+    {
+        Remove(mappable, from);
+        Add(mappable, to);
+    }
+
+    public virtual List<IMappable>? At(Point point)
+    {
+        if (_fields.ContainsKey(point))
+        {
+            return _fields[point];
+        }
+
+        return null;
+    }
+
+    public virtual List<IMappable> At(int x, int y)
+    {
+        return At(new Point(x, y));
+    }
 }

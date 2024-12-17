@@ -3,10 +3,6 @@ namespace Simulator.Maps;
 
 public class BigBounceMap : BigMap
 {
-    // Properties
-    protected override List<IMappable>?[,] Fields => throw new NotImplementedException();
-
-
     // Constructors
     public BigBounceMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
