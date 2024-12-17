@@ -19,6 +19,25 @@ public class SimulationHistory
 
     private void Run()
     {
-        // implement
+        while (!_simulation.Finished)
+        {
+            var positionsandsymbols = new Dictionary<Point, char>();
+
+            _simulation.Turn();
+
+            foreach (var imappable in _simulation.IMappables)
+            {
+                positionsandsymbols[imappable.Position] = imappable.Symbol;
+            }
+
+            var turnLog = new SimulationTurnLog
+            {
+                Mappable = _simulation.CurrentMappable.ToString(),
+                Move = _simulation.CurrentMoveName,
+                Symbols = positionsandsymbols
+            };
+
+            TurnLogs.Add(turnLog);
+        }
     }
 }

@@ -7,7 +7,7 @@ public class SimulationTurnLog
 {
     /// <summary>
     /// Text representastion of moving object in this turn.
-    /// CurrentMappable.ToString()
+    /// CurrentMappable.ToString();
     /// </summary>
     public required string Mappable { get; init; }
     /// <summary>
