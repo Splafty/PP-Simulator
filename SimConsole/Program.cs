@@ -17,16 +17,19 @@ class Program
         //RunSimulation3();
 
         RunSimulation4();
-        Console.WriteLine("\nPress any key to run another simulation - ONLY FLYING BIRDS...\n");
+        //Console.WriteLine("\nPress any key to run another simulation - ONLY FLYING BIRDS...\n");
         Console.ReadKey(true);
+
+        // W programie SimConsole używając ostatniej mapy i nowej klasy wyświetl 5, 10, 15 i 20-tą turę symulacji.
+        // TO DO!!!
 
         // Testing flying birds movement on bouncy map
-        RunSimulation5();
-        Console.WriteLine("\nPress any key to run another simulation - ONLY NON FLYING BIRDS...\n");
-        Console.ReadKey(true);
+        //RunSimulation5();
+        //Console.WriteLine("\nPress any key to run another simulation - ONLY NON FLYING BIRDS...\n");
+        //Console.ReadKey(true);
 
         // Testing non flying birds movement on bouncy map
-        RunSimulation6();
+        //RunSimulation6();
     }
 
     static void RunSimulation1()
