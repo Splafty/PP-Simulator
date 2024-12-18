@@ -18,5 +18,5 @@ public class SimulationTurnLog
     /// <summary>
     /// Dictionary of IMappable.Symbol on the map in this turn.
     /// </summary>
-    public required Dictionary<Point, char> Symbols { get; init; }
+    public required Dictionary<Point, List<char>> Symbols { get; init; } // Modified so we can track imappables that are on the same coordinates
 }

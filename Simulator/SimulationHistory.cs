@@ -21,23 +21,28 @@ public class SimulationHistory
     {
         while (!_simulation.Finished)
         {
-            var positionsandsymbols = new Dictionary<Point, char>();
+            var positionsAndSymbols = new Dictionary<Point, List<char>>();
 
             _simulation.Turn();
 
             foreach (var imappable in _simulation.IMappables)
             {
-                positionsandsymbols[imappable.Position] = imappable.Symbol;
+                if (!positionsAndSymbols.ContainsKey(imappable.Position))
+                {
+                    positionsAndSymbols[imappable.Position] = new List<char>();
+                }
+                positionsAndSymbols[imappable.Position].Add(imappable.Symbol);
             }
 
             var turnLog = new SimulationTurnLog
             {
                 Mappable = _simulation.CurrentMappable.ToString(),
                 Move = _simulation.CurrentMoveName,
-                Symbols = positionsandsymbols
+                Symbols = positionsAndSymbols
             };
 
             TurnLogs.Add(turnLog);
         }
     }
+
 }

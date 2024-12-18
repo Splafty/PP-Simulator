@@ -16,12 +16,9 @@ class Program
         //Console.ReadKey(true);
         //RunSimulation3();
 
-        RunSimulation4();
+        //RunSimulation4();
         //Console.WriteLine("\nPress any key to run another simulation - ONLY FLYING BIRDS...\n");
-        Console.ReadKey(true);
-
-        // W programie SimConsole używając ostatniej mapy i nowej klasy wyświetl 5, 10, 15 i 20-tą turę symulacji.
-        // TO DO!!!
+        //Console.ReadKey(true);
 
         // Testing flying birds movement on bouncy map
         //RunSimulation5();
@@ -30,6 +27,8 @@ class Program
 
         // Testing non flying birds movement on bouncy map
         //RunSimulation6();
+
+        RunSimulation7();
     }
 
     static void RunSimulation1()
@@ -54,9 +53,9 @@ class Program
 
     static void RunSimulation3()
     {
-        SmallTorusMap map = new(8,6);
+        SmallTorusMap map = new(8, 6);
         List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Animals("Rabbits", 6), new Birds("Eagles", 3, true), new Birds("Ostrich", 8, false) };
-        List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new (4, 2), new (1, 1)};
+        List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new(4, 2), new(1, 1) };
         string moves = "uldrddrlrrululr";
 
         RunSimulation(map, mappables, points, moves);
@@ -66,12 +65,12 @@ class Program
     {
         BigBounceMap map = new(8, 6);
         List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Animals("Rabbits", 6), new Birds("Eagles", 3, true), new Birds("Ostriches", 8, false) };
-        List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new(4, 2), new(7,5) };
+        List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new(4, 2), new(7, 5) };
         string moves = "lrududuldrllludlrlld";
 
         RunSimulation(map, mappables, points, moves);
     }
-    
+
     // Testing flying birds movement on bouncy map
     static void RunSimulation5()
     {
@@ -88,11 +87,25 @@ class Program
     {
         BigBounceMap map = new(5, 5);
         List<IMappable> mappables = new() { new Birds("Ostriches1", 8, false), new Birds("Ostriches2", 8, false), new Birds("Ostriches3", 8, false), new Birds("Ostriches4", 8, false) };
-        List<Point> points = new() { new(0,1), new (1,4), new(4,3), new(3,0) };
+        List<Point> points = new() { new(0, 1), new(1, 4), new(4, 3), new(3, 0) };
         string moves = "urudlrruudddlulrrr";
 
         RunSimulation(map, mappables, points, moves);
     }
+
+    // Testing logs
+    static void RunSimulation7()
+    {
+        BigBounceMap map = new(8, 6);
+        List<IMappable> mappables = new() { new Orc("Ugluk"), new Elf("Galadriel"), new Animals("Rabbits", 6), new Birds("Eagles", 3, true), new Birds("Ostriches", 8, false) };
+        List<Point> points = new() { new(0, 0), new(5, 5), new(2, 3), new(4, 2), new(7, 5) };
+        string moves = "lrududuldrllludlrlld";
+
+        RunSimulationHistory(map, mappables, points, moves);
+    }
+
+
+    // Function to run simulations
     static void RunSimulation(Map map, List<IMappable> mappables, List<Point> points, string moves)
     {
         Simulation simulation = new(map, mappables, points, moves);
@@ -118,5 +131,37 @@ class Program
         }
 
         Console.WriteLine("Simulation finished!");
+    }
+
+
+    //Function to run simulation history
+    static void RunSimulationHistory(Map map, List<IMappable> mappables, List<Point> points, string moves)
+    {
+        Simulation simulation = new(map, mappables, points, moves);
+
+        SimulationHistory simulationHistory = new(simulation);
+        LogVisualizer logVisualizer = new(simulationHistory);
+
+        Console.WriteLine("[LOGS] SIMULATION LOGS!\n");
+        Console.WriteLine("[LOGS] Starting positions:");
+
+        logVisualizer.Draw(0);
+        Console.WriteLine("Press any key to continue...\n");
+
+        Console.ReadKey(true);
+        logVisualizer.Draw(4);
+        Console.WriteLine("Press any key to continue...\n");
+
+        Console.ReadKey(true);
+        logVisualizer.Draw(9);
+        Console.WriteLine("Press any key to continue...\n");
+
+        Console.ReadKey(true);
+        logVisualizer.Draw(14);
+        Console.WriteLine("Press any key to continue...\n");
+
+        Console.ReadKey(true);
+        logVisualizer.Draw(19);
+        Console.WriteLine("Press any key to continue...\n");
     }
 }
