@@ -103,7 +103,15 @@ internal class LogVisualizer
         lines.Add(bottomBorder);
 
         // Printing result to console for now - we can do something with the result in the future
-        Console.WriteLine($"[LOGS] Turn: {turnIndex}");
+        if (turnIndex == 0)
+        {
+            Console.WriteLine($"[LOGS] Turn: {turnIndex}");
+        }
+        else
+        {
+            Console.WriteLine($"[LOGS] Turn: {turnIndex + 1}");
+        }
+
         foreach (var line in lines)
         {
             Console.WriteLine(line);
