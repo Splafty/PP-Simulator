@@ -1,10 +1,12 @@
 ﻿using Simulator.Maps;
+using System.Text.Json.Serialization;
 
 namespace Simulator;
 
 public class Birds : Animals
 {
     // Properties
+    [JsonIgnore]
     public override char Symbol => CanFly ? 'B' : 'b';
 
     private bool canFly = true;
@@ -17,6 +19,7 @@ public class Birds : Animals
         }
     }
 
+    [JsonIgnore]
     public override string Info => $"{Description} (fly{(CanFly ? "+" : "-")}) <{Size}>";
 
 

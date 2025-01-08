@@ -1,4 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Simulator.Maps;
 
 namespace Simulator;
@@ -7,10 +9,89 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Starting Simulator!\n");
-        Lab5a();
-        Lab5b();
-        Console.ReadLine();
+        //Console.WriteLine("Starting Simulator!\n");
+        //Lab5a();
+        //Lab5b();
+        //Console.ReadLine();
+
+
+        // SERIALIZATION ORCS/ELFS
+        //var jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+
+        //Orc o1 = new("Gorbag", 3, 5);
+        //string json = JsonSerializer.Serialize(o1, jsonOptions);
+        //Console.WriteLine(json);
+
+        //Orc? o2 = JsonSerializer.Deserialize<Orc>(json);
+        //Console.WriteLine(o2);
+
+
+        // SERIALIZATION POINT
+        //Point p1 = new(2, 4);
+        //string json = JsonSerializer.Serialize(p1);
+        //Console.WriteLine(json); // {}
+
+        //Point p2 = JsonSerializer.Deserialize<Point>(json);
+        //Console.WriteLine(p2);
+
+        // SERIALIZATION 2 SAME + preserve
+        //var options = new JsonSerializerOptions
+        //{
+        //    WriteIndented = true,
+        //    ReferenceHandler = ReferenceHandler.Preserve
+        //};
+
+        //Orc o1 = new("Gorbag", 3, 5);
+        //Orc o2 = new("Morgash", 2, 7);
+
+        //List<Orc> orcs = new() { o1, o2, o1 };
+        //Console.WriteLine(orcs[0] == orcs[2]); // True
+
+        //string json = JsonSerializer.Serialize(orcs, options);
+        //Console.WriteLine("\nJSON:");
+        //Console.WriteLine(json);
+
+        //List<Orc> deserialized =
+        //    JsonSerializer.Deserialize<List<Orc>>(json, options)!;
+
+        //Console.Write("\nReference preserved:");
+        //Console.WriteLine(deserialized[0] == deserialized[2]);
+
+        // SERIALIZATION POLIOMORFIC
+        //var options = new JsonSerializerOptions { WriteIndented = true };
+
+        //List<Creature> creatures = [
+        //    new Orc("Gorbag", 3, 5),
+        //    new Elf("Legolas", 2, 7)
+        //];
+        //string json = JsonSerializer.Serialize(creatures, options);
+        //Console.WriteLine("\nJSON:");
+        //Console.WriteLine(json);
+
+        //List<Creature> deserialized =
+        //    JsonSerializer.Deserialize<List<Creature>>(json, options)!;
+
+        //Console.WriteLine("\nPolimorfic OK:");
+        //Console.WriteLine(deserialized[0] is Orc);
+        //Console.WriteLine(deserialized[1] is Elf);
+
+        // SERIALIZATION CD
+        var options = new JsonSerializerOptions { WriteIndented = true };
+
+        List<IMappable> mapables = [
+            new Orc("Gorbag", 3, 5),
+            new Elf("Elandor", 2, 7),
+            new Animals { Description = "Rasbbits", Size = 10 },
+            new Birds { Description = "Eagles", Size = 15 },
+            new Birds { Description = "Emu", Size = 8, CanFly = false }
+        ];
+
+        string json = JsonSerializer.Serialize(mapables, options);
+        Console.WriteLine("\nJSON:");
+        Console.WriteLine(json);
+
+        List<IMappable> deserialized =
+            JsonSerializer.Deserialize<List<IMappable>>(json, options)!;
     }
 
     static void Lab5a()
